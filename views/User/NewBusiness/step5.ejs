@@ -1,0 +1,287 @@
+<%- contentFor('HeaderCss') %>
+
+
+<link rel="stylesheet" href="public/assets/libs/twitter-bootstrap-wizard/prettify.css">
+<link href="public/assets/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css">
+<link href="public/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet">
+<link href="public/assets/libs/spectrum-colorpicker2/spectrum.min.css" rel="stylesheet" type="text/css">
+<link href="public/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="public/assets/libs/twitter-bootstrap-wizard/prettify.css">
+<link href="public/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+
+
+<%- contentFor('breadcrumb') %>
+
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">Add Business</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Add Business</a></li>
+                    <li class="breadcrumb-item active">Step 2</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<%- contentFor('body') %>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div id="progrss-wizard" class="twitter-bs-wizard">
+                    <ul class="twitter-bs-wizard-nav nav-justified">
+                        <li class="nav-item">
+                            <a href="#progress-seller-details" class="nav-link" >
+                                <span class="step-number bg-light text-primary">01</span>
+                                <span class="step-title">Basic Details</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="#progress-bank-detail" class="nav-link"  >
+                                <span class="step-number  bg-light text-primary">02</span>
+                                <span class="step-title">Business Images</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#progress-company-document" class="nav-link"  >
+                                <span class="step-number bg-light text-primary">03</span>
+                                <span class="step-title">Business Credentials</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#progress-confirm-detail" class="nav-link"  >
+                                <span class="step-number bg-light text-primary">04</span>
+                                <span class="step-title">Business Documents</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#progress-confirm-detail" class="nav-link"  >
+                                <span class="step-number bg-primary text-white">05</span>
+                                <span class="step-title">Business Documents</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div  class="progress mt-4 mb-6">
+                        <div class="bg-success progress-bar-striped progress-bar-animated" style="width: 100%;"></div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" id="owner Details">
+  
+
+    <div class="col">
+<center><button type="button" class="btn btn-primary waves-effect waves-light mb-4" data-bs-toggle="modal" data-bs-target=".bs-example-modal-sm">Add More Business Owner</button></center>
+
+
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Incorporation Certificate</h4>
+                    <p class="card-title-desc">Please Upload Incorporation Certificate In PDF format</p>
+                    <div class="input-group">
+                        <input type="file" class="form-control" id="Incorporation">
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Udyog Adhar</h4>
+                    <p class="card-title-desc">Please Upload Udyog Adhar In PDF format</p>
+                    <div class="input-group">
+                        <input type="file" class="form-control" id="Udyog">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<form class="custom-validation" action="/Step5" method="post">
+
+        <input type="text" name="Incorporation" id="Incorporationlink" hidden  value="<%= company[0].Incorporation_pdf %>">
+        <input type="text" name="Udyog" id="Udyoglink" hidden value="<%= company[0].udyog_pdf %>">
+        <center>
+            <a href="/previous" class="btn btn-info mb-4">Previous</a>
+            <button id="submitbtn" class="btn btn-success mb-4">Upload & Next</button>
+        </center>
+
+</form>
+        
+    </div>
+
+    <% users.forEach(function(user) { %>
+      <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Company Owner Details Details <%= user.created_by !=0 ? '(Default)':'' %></h4>
+                <div>
+                    <div class="mb-4">
+                        <input class="form-control" id="youtube" type="text" value="Name : <%= user.name %>" disabled>
+                    </div>
+                    <div class="mb-4">
+                        <input class="form-control" id="facebook" type="text" value="Email : <%= user.email %>" disabled>
+                    </div>
+                    <div class="mb-4">
+                        <input class="form-control" id="instagram" type="text" value="Phone : <%= user.phone %>" disabled>
+                    </div>
+                    <div class="mb-4">
+                        <input class="form-control" id="google" type="text" value="Aadhar : <%= user.aadhar %>" disabled>
+                    </div>
+                    <div class="mb-4">
+                        <input class="form-control" id="google" type="text" value="PAN : <%= user.pan %>" disabled>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% }) %>
+
+</div>
+
+
+
+
+
+<div class="col-sm-6 col-md-4 col-xl-3">
+    <!--  Modal content for the above example -->
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0" id="mySmallModalLabel">Add Owner</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form class="custom-validation" action="/add-owner" method="post">
+                
+                <div class="modal-body">
+                    <div class="col-lg-12">
+                        <div class="mb-3">
+                            <label class="form-label" for="progress-basicpill-lastname-input" required>Phone Number</label>
+                            <input type="number" class="form-control" name="newPhone">
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="mb-3">
+                            <label class="form-label" for="progress-basicpill-lastname-input" required>Email ID</label>
+                            <input type="email" class="form-control" name="newEmail">
+                        </div>
+                    </div>
+
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary waves-effect waves-light">Add Owner</button>
+                    <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div><!-- /.modal-content -->
+            </form>
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div>
+
+
+
+<script>
+var Incorporation = document.getElementById('Incorporation');
+
+Incorporation.addEventListener('change', function (event) {
+  handleFileUpload(event.target.files[0], 'Incorporationlink')
+    .then(function (x) {
+      console.log(x)
+    })
+});
+
+var Udyog = document.getElementById('Udyog');
+
+Udyog.addEventListener('change', function (event) {
+  handleFileUpload(event.target.files[0], 'Udyoglink')
+    .then(function (x) {
+      console.log(x)
+    })
+});
+</script>
+
+
+
+
+<script>
+    
+$('form').submit(function(event) {
+    event.preventDefault();
+
+    var formData = $(this).serializeArray();
+    var jsonData = {};
+    formData.forEach(function(item) {
+        jsonData[item.name] = item.value;
+    });
+
+    $.ajax({
+        url: $(this).attr('action'),
+        method: $(this).attr('method'),
+        data: JSON.stringify(jsonData),
+        contentType: 'application/json',
+        success: function(response) {
+            console.log(response.msg);
+
+            if (!response.status) {
+                erroralert(response.msg);
+            }
+            if (response.status) {
+                successalert(response.msg);
+            }
+
+            if(response.status==true){location.reload()}
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+        }
+    });
+});
+</script>
+
+
+
+
+
+
+<!-- end row -->
+
+
+<%- contentFor('FooterJs') %>
+
+<script src="public/assets/libs/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<script src="public/assets/js/pages/form-element.init.js"></script>
+<script src="public/assets/libs/inputmask/jquery.inputmask.min.js"></script>
+<script src="public/assets/js/pages/form-mask.init.js"></script>
+
+<script src="public/assets/js/pages/form-wizard.init.js"></script>
+<script src="public/assets/libs/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+<script src="public/assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+
+<script src="public/assets/libs/twitter-bootstrap-wizard/prettify.js"></script>
+
+<script src="public/assets/libs/select2/js/select2.min.js"></script>
+<script src="public/assets/libs/spectrum-colorpicker2/spectrum.min.js"></script>
+<script src="public/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+
+<script src="public/assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+
+<script src="public/assets/js/pages/form-advanced.init.js"></script>
+
+<script src="public/assets/libs/parsleyjs/parsley.min.js"></script>
+
+<script src="public/assets/js/pages/form-validation.init.js"></script>
+
+
+<%- contentFor('BottomJs') %>

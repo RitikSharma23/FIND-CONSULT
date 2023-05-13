@@ -1,0 +1,106 @@
+<%- contentFor('HeaderCss') %>
+
+<link href="public/assets/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css">
+<link href="public/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet">
+<link href="public/assets/libs/spectrum-colorpicker2/spectrum.min.css" rel="stylesheet" type="text/css">
+<link href="public/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
+
+<%- contentFor('breadcrumb') %>
+
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">Form Advanced</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Forms</a></li>
+                    <li class="breadcrumb-item active">Form Advanced</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<%- contentFor('body') %>
+
+<% if (isLogged) { %>
+    <h1>Welcome <%= users.name %></h1>
+<% } %>
+
+
+<div class="col-sm-6 col-md-4 col-xl-3">
+
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" >
+        <div class="modal-dialog modal-sm" id="phoneModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0" id="mySmallModalLabel">Add Phone</h5>
+                </div>
+                <div class="modal-body">
+                    
+                        <form action="/user-addPhone" method="post">
+                            <div class="mb-4">
+                                <div class="mb-4">
+                                    <input class="form-control form-control-lg" name="phone" type="text" placeholder="Enter Phone">
+                                </div>
+                                <div class="mb-4">
+                                    <input class="form-control form-control-lg" name="otp" type="number" placeholder="Enter OTP" hidden>
+                                </div>
+                            </div>
+                            <input type="submit" value="submit" class="btn btn-success">
+                        </form>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div>
+
+<script>
+
+$('form').submit(function(event) {
+    event.preventDefault();
+    var formData = $(this).serializeArray();
+    var jsonData = {};
+    formData.forEach(function(item) {
+      jsonData[item.name] = item.value;
+    });
+    $.ajax({
+      url: $(this).attr('action'),
+      method: $(this).attr('method'),
+      data: JSON.stringify(jsonData),
+      contentType: 'application/json',
+      success: function(response) {
+        console.log(response.msg)
+
+        if(response.status==false){
+            infoalert(response.msg)
+        }
+
+        if(response.msg=="nullPhone"){
+            $('#phonebtn').trigger('click');
+        }
+
+        if(response.msg=="otpSent"){
+            $('input[name="otp"]').removeAttr('hidden');
+        }
+
+        if(response.status) window.location.href =response.link
+
+      },
+      error: function(xhr, status, error) {
+        console.error(error);
+      }
+    });
+  });
+</script>
+
+<script src="public/assets/js/pages/form-validation.init.js"></script>
+
+
+<%- contentFor('FooterJs') %>
+
+
+
+<%- contentFor('BottomJs') %>

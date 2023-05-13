@@ -1,0 +1,461 @@
+<%- contentFor('HeaderCss') %>
+
+<!-- DataTables -->
+<link href="public/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="public/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="public/assets/libs/datatables.net-select-bs4/css//select.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+<!-- Responsive datatable examples -->
+<link href="public/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" /> 
+<link href="public/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+
+<%- contentFor('breadcrumb') %>
+
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">All Users</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Listing</a></li>
+                    <li class="breadcrumb-item active">All Users</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<%- contentFor('body') %>
+
+
+
+
+
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap w-100">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Profile Image</th>
+                            <th>Role</th>
+                            <th>Action</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                
+                    <tbody>
+
+                        <% users.forEach(function(user) { %>
+                            <tr>
+                              <td><%= user.name %></td>
+                              <td><%= user.phone %></td>
+                              <td><%= user.email %></td>
+                              <td>
+                                <img src="<%= user.profile_image || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'%>" alt="Profile" class="rounded-circle avatar-sm" height="1550px">
+                              </td>
+                              
+                                <!-- <span class="<%= user.role == 1 ? 'badge badge-soft-danger' : (user.role == 2 ? 'badge badge-soft-info' : (user.role == 3 ? 'badge badge-soft-warning' : 'badge badge-soft-success')) %>">Subadmin</span> -->
+                                <td>
+                
+
+                                    <span class="<%= user.role == 1 ? 'badge badge-soft-danger':'' %>"><%= user.role == 1 ? 'Superadmin':'' %></span>
+                                    <span class="<%= user.role == 2 ? 'badge badge-soft-info':'' %>"><%= user.role == 2 ? 'Admin':'' %></span>
+                                    <span class="<%= user.role == 3 ? 'badge badge-soft-warning':'' %>"><%= user.role == 3 ? 'Subadmin':'' %></span>
+                                    <span class="<%= user.role == 4 ? 'badge badge-soft-success':'' %>"><%= user.role == 4 ? 'Customer':'' %></span>
+                                
+                                </td>
+                                <td>
+                
+
+                                    <span class="<%= user.status == 4 ? 'badge badge-soft-danger':'' %>"><%= user.status == 4 ? 'Rejected':'' %></span>
+                                    <span class="<%= user.status == 1 ? 'badge badge-soft-info':'' %>"><%= user.status == 1 ? 'Verified':'' %></span>
+                                    <span class="<%= user.status == 2 ? 'badge badge-soft-warning':'' %>"><%= user.status == 2 ? 'Pending':'' %></span>
+                                    <span class="<%= user.status == 3 ? 'badge badge-soft-success':'' %>"><%= user.status == 3 ? 'New':'' %></span>
+                                
+                                </td>
+
+                            <td>
+                                <div class="btn-group mr-1 mt-2">
+                                    <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action <i class="mdi mdi-chevron-down"></i></button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item waves-effect waves-light" onclick="myFunction(<%= JSON.stringify(user) %>)">Edit</a>
+                                        <button class="dropdown-item business-delete-alert" data-my-variable="<%= user.id %>">Delete</button>
+                                        <button class="dropdown-item business-reject-alert" data-my-variable="<%= user.id %>" >Mark Reject</button>
+                                        <button class="dropdown-item business-makepending-alert" data-my-variable="<%= user.id %>">Mark Pending</button>
+                                        <button class="dropdown-item business-makenew-alert" data-my-variable="<%= user.id %>">Mark New</button>
+                                        <button class="dropdown-item business-verify-alert" data-my-variable="<%= user.id %>">Mark Verified</button>
+                                        <button class="dropdown-item business-make-admin" data-my-variable="<%= user.id %>">Promote Admin</button>
+                                    </div>
+                                </div>
+                            </td>
+                            </tr>
+                        <% }) %>
+        
+             
+
+                    </tbody>
+                </table>
+            </div> <!-- end card body-->
+        </div> <!-- end card -->
+    </div><!-- end col-->
+</div>
+
+
+
+
+
+
+
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title mt-0" id="myLargeModalLabel">Update User</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <center>
+                <div class="col-md-6 mb-4">
+                    <div class="mt-4 mt-md-0">
+                        <img class="rounded-circle avatar-xl" alt="200x200" id="profileimg" src="public/assets/images/users/avatar-4.jpg" data-holder-rendered="true">
+                    </div>
+                </div>
+            <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#myModal">Change Image</button>
+
+            </center>
+
+
+            <form class="needs-validation" novalidate id="update-form">
+              <div class="row">
+                  <div class="col-md-4">
+                      <div class="mb-3">
+                          <label for="name" class="form-label">Full Name</label>
+                          <input type="text" class="form-control" id="name"
+                              placeholder="Full name" value="" required>
+                          <input type="number" id="id" hidden>
+                          <div class="valid-feedback">
+                              Looks good!
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="mb-3">
+                          <label for="email" class="form-label">Email</label>
+                          <input type="email" class="form-control" id="email"
+                              placeholder="Email" value="" required>
+                          <div class="valid-feedback">
+                              Looks good!
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="mb-3">
+                          <label for="email" class="form-label">Phone</label>
+                          <input type="phone" class="form-control" id="phone"
+                              placeholder="Phone" value="">
+                          <div class="valid-feedback">
+                              Looks good!
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="mb-3">
+                      <label for="facebook" class="form-label">Facebook</label>
+                      <input type="text" class="form-control" id="facebook"
+                          placeholder="Facebook" value="">
+                      <div class="valid-feedback">
+                          Looks good!
+                      </div>
+                  </div>
+                </div>
+                
+                <div class="col-md-4">
+                  <div class="mb-3">
+                      <label for="twitter" class="form-label">Twitter</label>
+                      <input type="text" class="form-control" id="twitter"
+                          placeholder="twitter" value="">
+                      <div class="valid-feedback">
+                          Looks good!
+                      </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="mb-3">
+                      <label for="instagram" class="form-label">Instagram</label>
+                      <input type="text" class="form-control" id="instagram"
+                          placeholder="Instagram" value="">
+                      <div class="valid-feedback">
+                          Looks good!
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                  <button class="btn btn-primary business-btn-submitbtn" id="submitbtn">Update User</button>
+
+              </div>
+          </form>
+
+
+          </div>
+      </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+
+
+
+
+<div class="col-sm-6 col-md-4 col-xl-3">
+    <!-- sample modal content -->
+    <div id="myModal" class="modal fade image" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0" id="myModalLabel">Upload Image</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+                    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.css'>
+                    <link rel="stylesheet" href="public/assets/css/imagestyle.css">
+                    <link rel="stylesheet" href="public/assets/css/demo.css">
+                    
+                    <main class="page" >
+
+                        <div class="box">
+                            <input type="file" id="file-input" class="mb-4">
+                        </div>
+                    
+                        <div class="box-2" >
+                            <div class="result"></div>
+                        </div>
+                    
+                        <div class="box-2 img-result hide" >
+                            <img class="cropped" src="" alt="" height="100px" id="myImg">
+                        </div>
+                    
+                        <div class="box" >
+                            <div class="options hide">
+                                <input type="number" class="img-w" value="1200" min="100" max="1200" hidden />
+                            </div>
+                            <button class="btn save hide" id="savebtn">Crop</button>
+                            <button class="btn upload hide" id="uploadbtn">Upload</button>
+                        </div>
+                    </main>
+
+                    <script src='https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.8.1/cropper.min.js'></script>
+                    <script  src="public/assets/js/imagescript.js"></script>
+     
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light waves-effect" id="imageclosebtn" hidden data-bs-dismiss="modal">Close</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div>
+
+<script>
+    var firebaseConfig = {
+      apiKey: "AIzaSyDm3wPO6QhN0ezPF6hNprGw4C68Lef31fY",
+      authDomain: "test-f98fd.firebaseapp.com",
+      projectId: "test-f98fd",
+      storageBucket: "test-f98fd.appspot.com",
+      messagingSenderId: "533575527457",
+      appId: "1:533575527457:web:0131ad8ed9712049304760"
+    };
+
+    document.getElementById("uploadbtn").addEventListener("click", () => {
+      var imgUrl = document.getElementById('myImg').src;
+
+      if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+      }
+
+      const maxImageSize = 5 * 1024 * 1024; 
+
+      const imgUrlParts = imgUrl.split(",");
+    const data = imgUrlParts[1];
+    const mimeType = imgUrlParts[0].split(":")[1].split(";")[0];
+    const fileExtension = mimeType.split("/")[1];
+
+      if (imgUrl.length > maxImageSize) {
+        alert('The selected image is too large. Please choose an image smaller than 5 MB.');
+        return;
+      }
+      console.log(fileExtension.toLowerCase())
+
+      if (!['jpg', 'jpeg', 'png', 'gif'].includes(fileExtension.toLowerCase())) {
+        alert('The selected file is not an image. Please choose an image file with a .jpg, .jpeg, .png, or .gif extension.');
+        return;
+      }
+
+      fetch(imgUrl)
+        .then(response => response.blob())
+        .then(blob => {
+          var storageRef = firebase.storage().ref();
+          var timestamp = new Date().getTime();
+          var imageName = 'image_' + timestamp + '.jpg';
+          var imageRef = storageRef.child(imageName);
+          var metadata = { contentType: 'image/jpeg' };
+          var uploadTask = imageRef.put(blob, metadata);
+
+          uploadTask.on('state_changed', null, null, function() {
+            uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+              var imageUrl = downloadURL;
+              console.log(imageUrl);
+
+              $.ajax({
+                url: '/business-image-upload',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                      id : document.getElementById("id").value,
+                      image:imageUrl
+                }),
+                success: function(response) {
+                    console.log("Success")
+                    profileimg.src=imageUrl
+                    document.getElementById("imageclosebtn").click()
+                }
+              });
+
+            });
+          });
+        })
+        .catch(error => {
+          console.error('Error fetching image data:', error);
+        });
+    });
+</script>
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-storage.js"></script>
+
+<style>
+    .box-2 {
+      height: 200px;
+      width: 400px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .result img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+    
+</style>
+    
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  function myFunction(user) {
+    document.getElementById("id").value=user.id
+    document.getElementById("name").value=user.name
+    document.getElementById("email").value=user.email
+    document.getElementById("phone").value=user.phone
+    document.getElementById("instagram").value=user.instagram
+    document.getElementById("facebook").value=user.facebook
+    document.getElementById("twitter").value=user.twitter
+    if(user.profile_image!=null && user.profile_image!=""){
+        document.getElementById("profileimg").src=user.profile_image
+    }else{
+        document.getElementById("profileimg").src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+    }
+    const myModal = document.querySelector('.bs-example-modal-lg');
+  const modal = new bootstrap.Modal(myModal);
+  modal.show();
+}
+
+
+
+
+$(document).ready(function() {
+  $('#update-form').submit(function(event) {
+    event.preventDefault(); // prevent default form submission behavior
+
+    // perform custom actions here, such as validating user inputs or sending the data via AJAX
+
+    // return false to prevent the form from submitting again
+    return false;
+  });
+});
+
+
+
+
+</script>
+
+<script src="public/assets/js/pages/form-validation.init.js"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<%- contentFor('FooterJs') %>
+
+<script src="public/assets/libs/parsleyjs/parsley.min.js"></script>
+
+<script src="public/assets/js/pages/form-validation.init.js"></script>
+
+<!-- Required datatable js -->
+<script src="public/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="public/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<!-- Buttons examples -->
+<script src="public/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="public/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+<script src="public/assets/libs/jszip/jszip.min.js"></script>
+<script src="public/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+<script src="public/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+<script src="public/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="public/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="public/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+
+<script src="public/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+<script src="public/assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+
+<!-- Responsive examples -->
+<script src="public/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="public/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+
+<!-- Datatable init js -->
+<script src="public/assets/js/pages/datatables.init.js"></script>
+
+<script src="public/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+
+<!-- Sweet alert init js-->
+<script src="public/assets/js/pages/sweet-alerts.init.js"></script>
+
+
+<%- contentFor('BottomJs') %>

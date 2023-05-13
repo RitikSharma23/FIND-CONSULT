@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8" />
+  <title><%- title %> | Find & Consult</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta content="Premium Multipurpose Admin & Dashboard Template" name="description">
+  <meta content="Themesdesign" name="author">
+  <!-- App favicon -->
+  <link rel="shortcut icon" href="public/assets/images/favicon.ico">
+
+  <%- HeaderCss %>
+  <%- include ('./Admin/Partials/HeaderStyle')  %>
+
+  
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-storage.js"></script>  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>  
+<script src="public/assets/js/alert.js"></script>
+
+</head>
+
+
+<% if (type=="superadmin") { %>
+
+  <body data-sidebar="dark">
+    <div id="layout-wrapper">  
+      <%- include ('./Superadmin/Partials/Header')  %>
+      <%- include ('./Superadmin/Partials/Sidebar')  %>
+      <div class="main-content">
+        <div class="page-content">
+          <div class="container-fluid">
+            <%- breadcrumb %>
+            <%- body %>
+          </div>
+        </div>
+        <%- include ('./Superadmin/Partials/Footer') %>
+      </div>
+    </div>
+    <%- include ('./Superadmin/Partials/Rightbar')  %>
+    <%- include ('./Superadmin/Partials/VendorScript')  %>
+    <%- FooterJs %>
+    <script src="public/assets/js/app.js"></script>
+    <%- BottomJs %>
+  </body>
+
+  <%} else if (type=="admin") { %>
+
+  <body data-sidebar="dark">
+    <div id="layout-wrapper">  
+      <%- include ('./Admin/Partials/Header')  %>
+      <%- include ('./Admin/Partials/Sidebar')  %>
+      <div class="main-content">
+        <div class="page-content">
+          <div class="container-fluid">
+            <%- breadcrumb %>
+            <%- body %>
+          </div>
+        </div>
+        <%- include ('./Admin/Partials/Footer') %>
+      </div>
+    </div>
+    <%- include ('./Admin/Partials/Rightbar')  %>
+    <%- include ('./Admin/Partials/VendorScript')  %>
+    <%- FooterJs %>
+    <script src="public/assets/js/app.js"></script>
+    <%- BottomJs %>
+  </body>
+
+  <%} else if (type=="subadmin") { %>
+
+  <body data-sidebar="dark">
+    <div id="layout-wrapper">  
+      <%- include ('./Subadmin/Partials/Header')  %>
+      <%- include ('./Subadmin/Partials/Sidebar')  %>
+      <div class="main-content">
+        <div class="page-content">
+          <div class="container-fluid">
+            <%- breadcrumb %>
+            <%- body %>
+          </div>
+        </div>
+        <%- include ('./Subadmin/Partials/Footer') %>
+      </div>
+    </div>
+    <%- include ('./Subadmin/Partials/Rightbar')  %>
+    <%- include ('./Subadmin/Partials/VendorScript')  %>
+    <%- FooterJs %>
+    <script src="public/assets/js/app.js"></script>
+    <%- BottomJs %>
+  </body>
+
+  <%} else if (type=="user") { %>
+
+
+  <body data-sidebar="dark">
+    <div id="layout-wrapper">  
+      <%- include ('./User/Partials/Header')  %>
+      <%- include ('./User/Partials/Sidebar')  %>
+      <div class="main-content">
+        <div class="page-content">
+          <div class="container-fluid">
+            <%- breadcrumb %>
+            <%- body %>
+          </div>
+        </div>
+        <%- include ('./User/Partials/Footer') %>
+      </div>
+    </div>
+    <%- include ('./User/Partials/Rightbar')  %>
+    <%- include ('./User/Partials/VendorScript')  %>
+    <%- FooterJs %>
+    <script src="public/assets/js/app.js"></script>
+    <%- BottomJs %>
+  </body>
+
+<%} else { %>
+  <body data-sidebar="dark">
+    <div class="page-content">
+        <div class="container-fluid"  style="width: 80%;">
+          <%- body %>
+        </div>
+      </div>
+  <%- include ('./User/Partials/VendorScript')  %>
+  <%- FooterJs %>
+  <script src="public/assets/js/app.js"></script>
+  <%- BottomJs %>
+  </body>
+<% } %>
+
+
+
+
+
+
+</html>

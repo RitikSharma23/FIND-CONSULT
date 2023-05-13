@@ -1,0 +1,228 @@
+<%- contentFor('HeaderCss') %>
+
+<!-- DataTables -->
+<link href="public/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="public/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="public/assets/libs/datatables.net-select-bs4/css//select.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+<!-- Responsive datatable examples -->
+<link href="public/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" /> 
+<link href="public/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+
+
+<%- contentFor('breadcrumb') %>
+
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">All ribbon</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Listing</a></li>
+                    <li class="breadcrumb-item active">All ribbon</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<%- contentFor('body') %>
+
+
+
+
+
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap w-100">
+                    <thead>
+                        <tr>
+                            <th>ribbon Name</th>
+                            <th>Color</th>
+                            <th>Created At</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                
+                    <tbody>
+
+                        <% ribbon.forEach(function(c) { %>
+                            <tr>
+                              <td><%= c.name %></td>
+                              <td>
+                                <div style="background-color: <%= c.color %>;height: 40px;width: 40px;border-radius: 100px;">
+
+                                </div>
+                              </td>
+                              </td>
+                                <td><%= c.created_at %></td>
+
+                                <td>
+                                    <span class="<%= c.status == 4 ? 'badge badge-soft-danger':'' %>"><%= c.status == 4 ? 'Rejected':'' %></span>
+                                    <span class="<%= c.status == 1 ? 'badge badge-soft-info':'' %>"><%= c.status == 1 ? 'Verified':'' %></span>
+                                    <span class="<%= c.status == 2 ? 'badge badge-soft-warning':'' %>"><%= c.status == 2 ? 'Pending':'' %></span>
+                                    <span class="<%= c.status == 3 ? 'badge badge-soft-success':'' %>"><%= c.status == 3 ? 'New':'' %></span>
+                                </td>
+
+
+                            <td>
+                                <div class="btn-group mr-1 mt-2">
+                                    <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action <i class="mdi mdi-chevron-down"></i></button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item waves-effect waves-light" onclick="myFunction(<%= JSON.stringify(c) %>)">Edit</a>
+                                        <button class="dropdown-item ribbon-delete-alert" data-my-variable="<%= c.id %>">Delete</button>
+                                    </div>
+                                </div>
+                            </td>
+                            </tr>
+                        <% }) %>
+        
+             
+
+                    </tbody>
+                </table>
+            </div> <!-- end card body-->
+        </div> <!-- end card -->
+    </div><!-- end col-->
+</div>
+
+
+
+
+
+
+
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title mt-0" id="myLargeModalLabel">Update c</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+
+
+
+            <form class="needs-validation" novalidate id="update-form">
+              <div class="row">
+                <div class="row">
+                    <div class="col-md-4">
+                      <div class="mb-3">
+                        <label for="name" class="form-label">ribbon Name</label>
+                        <input type="text" class="form-control" id="name"
+                            placeholder="Full name" value="" required>
+                        <input type="number" id="id" hidden>
+                          <div class="valid-feedback">
+                              Looks good!
+                          </div>
+                      </div>
+                    </div>
+                    
+                  <div class="col-md-4">
+                      <div class="mb-3">
+                        <div class="mb-3">
+                            <label class="form-label">Select Ribbon Tag</label>
+                            <input type="color" class="form-control" id="color" value="#50a5f1">
+                        </div>
+                      </div>
+                  </div>
+              </div>
+              <div>
+                  <button class="btn btn-primary ribbon-btn-submitbtn" id="submitbtn">Update ribbon</button>
+
+              </div>
+          </form>
+
+
+          </div>
+      </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  function myFunction(c) {
+    document.getElementById("id").value=c.id
+    document.getElementById("name").value=c.name
+    document.getElementById("color").value=c.color
+    const myModal = document.querySelector('.bs-example-modal-lg');
+  const modal = new bootstrap.Modal(myModal);
+  modal.show();
+}
+
+
+
+
+$(document).ready(function() {
+  $('#update-form').submit(function(event) {
+    event.preventDefault(); // prevent default form submission behavior
+
+    // perform custom actions here, such as validating c inputs or sending the data via AJAX
+
+    // return false to prevent the form from submitting again
+    return false;
+  });
+});
+
+
+
+
+</script>
+
+<script src="public/assets/js/pages/form-advanced.init.js"></script>
+<script src="public/assets/libs/spectrum-colorpicker2/spectrum.min.js"></script>
+
+
+<script src="public/assets/js/pages/form-validation.init.js"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<%- contentFor('FooterJs') %>
+
+<script src="public/assets/libs/parsleyjs/parsley.min.js"></script>
+
+<script src="public/assets/js/pages/form-validation.init.js"></script>
+
+<!-- Required datatable js -->
+<script src="public/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="public/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<!-- Buttons examples -->
+<script src="public/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="public/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+<script src="public/assets/libs/jszip/jszip.min.js"></script>
+<script src="public/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+<script src="public/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+<script src="public/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="public/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="public/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+
+<script src="public/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+<script src="public/assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+
+<!-- Responsive examples -->
+<script src="public/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="public/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+
+<!-- Datatable init js -->
+<script src="public/assets/js/pages/datatables.init.js"></script>
+
+<script src="public/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+
+<!-- Sweet alert init js-->
+<script src="public/assets/js/pages/sweet-alerts.init.js"></script>
+
+
+<%- contentFor('BottomJs') %>

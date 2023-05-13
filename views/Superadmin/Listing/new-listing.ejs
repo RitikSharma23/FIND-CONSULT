@@ -1,0 +1,161 @@
+<%- contentFor('HeaderCss') %>
+
+<!-- DataTables -->
+<link href="public/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="public/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="public/assets/libs/datatables.net-select-bs4/css//select.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+<!-- Responsive datatable examples -->
+<link href="public/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" /> 
+
+<%- contentFor('breadcrumb') %>
+
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">New Listing</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Listing</a></li>
+                    <li class="breadcrumb-item active">New</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<%- contentFor('body') %>
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap w-100">
+                    <thead>
+                        <tr>
+                            <th>Company Logo</th>
+                            <th>Name</th>
+                            <th>City</th>
+                            <th>Phone</th>
+                            <th>Overview</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                
+                    <tbody>
+         
+                        <tr>
+                            <td>
+                                <img src="public/assets/images/users/avatar-3.jpg" alt="avatar-3" class="rounded-circle avatar-sm">
+                            </td>
+                            <td>First Company</td>
+                            <td>Ahmedabadf</td>
+                            <td>123456789</td>
+                            
+                            <td>
+                                <span class="badge badge-soft-warning">Pending</span>
+                            </td>
+                            <td>
+                                <div class="btn-group mr-1 mt-2">
+                                    <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action <i class="mdi mdi-chevron-down"></i></button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Edit</a>
+                                        <a class="dropdown-item" href="#">Delete</a>
+                                        <a class="dropdown-item" href="#">Mark Reject</a>
+                                        <a class="dropdown-item" href="#">Mark Pending</a>
+                                        <a class="dropdown-item" href="#">Mark New</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+             
+         
+                        <tr>
+                            <td>
+                                <img src="public/assets/images/users/avatar-3.jpg" alt="avatar-3" class="rounded-circle avatar-sm">
+                            </td>
+                            <td>Second Company</td>
+                            <td>Ahmedabadf</td>
+                            <td>123456789</td>
+                            
+                            <td>
+                                <span class="badge badge-soft-danger">Rejected</span>
+                            </td>
+                            <td>
+                                <div class="btn-group mr-1 mt-2">
+                                    <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action <i class="mdi mdi-chevron-down"></i></button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Edit</a>
+                                        <a class="dropdown-item" href="#">Delete</a>
+                                        <a class="dropdown-item" href="#">Mark Reject</a>
+                                        <a class="dropdown-item" href="#">Mark Pending</a>
+                                        <a class="dropdown-item" href="#">Mark New</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+             
+         
+                        <tr>
+                            <td>
+                                <img src="public/assets/images/users/avatar-3.jpg" alt="avatar-3" class="rounded-circle avatar-sm">
+                            </td>
+                            <td>Third Company</td>
+                            <td>Ahmedabadf</td>
+                            <td>123456789</td>
+                            
+                            <td>
+                                <span class="badge badge-soft-success">Approved</span>
+                            </td>
+                            <td>
+                                <div class="btn-group mr-1 mt-2">
+                                    <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action <i class="mdi mdi-chevron-down"></i></button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Edit</a>
+                                        <a class="dropdown-item" href="#">Delete</a>
+                                        <a class="dropdown-item" href="#">Mark Reject</a>
+                                        <a class="dropdown-item" href="#">Mark Pending</a>
+                                        <a class="dropdown-item" href="#">Mark New</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+             
+
+                    </tbody>
+                </table>
+            </div> <!-- end card body-->
+        </div> <!-- end card -->
+    </div><!-- end col-->
+</div>
+
+<%- contentFor('FooterJs') %>
+
+<!-- Required datatable js -->
+<script src="public/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="public/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<!-- Buttons examples -->
+<script src="public/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="public/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+<script src="public/assets/libs/jszip/jszip.min.js"></script>
+<script src="public/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+<script src="public/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+<script src="public/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="public/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="public/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+
+<script src="public/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+<script src="public/assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+
+<!-- Responsive examples -->
+<script src="public/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="public/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+
+<!-- Datatable init js -->
+<script src="public/assets/js/pages/datatables.init.js"></script>
+
+<%- contentFor('BottomJs') %>
